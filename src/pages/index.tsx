@@ -3,6 +3,7 @@ import { Button } from "@/components/Button";
 import { ChangeEvent, useEffect, useState } from "react";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
+import { Copy, Link } from "lucide-react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,6 +29,14 @@ export default function Home() {
     setUrl(event.target.value)
   }
 
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(shortUrl)
+    } catch (error) {
+      console.log('Erro ao copiar para área de transferência!')
+    }
+  }
+
   useEffect(() => {
     if(redirectUrl){
       fetchUrl(redirectUrl)
@@ -47,20 +56,26 @@ export default function Home() {
 
   return (
     <main className="flex flex-col p-4 gap-4 min-w-screen min-h-screen bg-[#0B101B] items-center">
-      <div>
-        <input
-          className="text-gray-300 bg-transparent"
-          value={url}
-          placeholder="Enter your link here"
-          onChange={handleChange}
-        />
+      <div className="flex lg:w-[659px] lg:h-[76px] border-4 border-[#353C4A] rounded-full justify-between items-center p-1">
+        <div className="flex gap-2 ml-4">
+          <Link className="text-gray-300"/>
+          <input
+            className="text-gray-300 bg-transparent"
+            value={url}
+            placeholder="Enter your link here"
+            onChange={handleChange}
+          />
+        </div>
         <Button title="Shorten Now!" onClick={handleShortUrlLink}/>
       </div>
       <div>
         {
           shortUrl ?
-            <div>
-              <a>{shortUrl}</a>
+            <div className="flex gap-2 items-center justify-center">
+              <a target="_blank"  className="text-[#C9CED6]">{shortUrl}</a>
+              <button className="flex w-[35px] h-[35px] rounded-full bg-[#1C283F] items-center justify-center" onClick={handleCopy} title="copy">
+                <Copy size={20}/>
+              </button>
             </div> : undefined
         }
       </div>
