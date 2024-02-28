@@ -3,7 +3,7 @@ import { Button } from "@/components/Button";
 import { ChangeEvent, useEffect, useState } from "react";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
-import { Copy, Link } from "lucide-react";
+import { Copy, Link, LogIn } from "lucide-react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -56,6 +56,13 @@ export default function Home() {
 
   return (
     <main className="flex flex-col p-4 gap-4 min-w-screen min-h-screen bg-[#0B101B] items-center">
+      <div className="flex self-end gap-2 lg:h-[60px]">
+        <button className="flex items-center justify-center flex-row gap-2 p-2 w-[123px] rounded-full lg:bg-[#181E29]">
+          <p>Login</p>
+          <LogIn/>
+        </button>
+        <Button title="Register Now!" />
+      </div>
       <div className="flex lg:w-[659px] lg:h-[76px] border-4 border-[#353C4A] rounded-full justify-between items-center p-1">
         <div className="flex gap-2 ml-4">
           <Link className="text-gray-300"/>
